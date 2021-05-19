@@ -4,8 +4,51 @@
 /* Timer will be on the top right corner */
 
 /* Main content will be centered in the middle of the page */
+:root {
+    /* button border and backgound */
+    --darkgrey:rgb(82, 80, 80);
+    --yellow:rgb(211, 185, 69);
 
+
+}
 * {
     box-sizing: border-box;
 }
+
+.highscore {
+    position: absolute;
+    left: 3px;
+    top: 0;
+    font-size: larger;
+    
+
+}
+.highscore a {
+    color:black;
+    text-decoration: none;
+    margin: 20px;
+}
+header {
+    display: flex;
+}
+
+#timer-text {
+    position: absolute;
+    right: 0;
+    margin: 20px;
+    font-size: larger;
+}
+
+main {
+    margin: 0 auto;
+    border: black dotted 4px;
+    position: relative;
+    top: 101px;
+    width: 50%;
+    height: 380px;
+}
+
+
+
+
 
