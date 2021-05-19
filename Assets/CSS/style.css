@@ -1,0 +1,11 @@
+/* Make a clickable highscore button in the top right corner (absolute) */
+/* When you click on the Highscore button there is a hand that hovers over */
+
+/* Timer will be on the top right corner */
+
+/* Main content will be centered in the middle of the page */
+
+* {
+    box-sizing: border-box;
+}
+
