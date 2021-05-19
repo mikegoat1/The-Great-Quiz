@@ -32,7 +32,7 @@ header {
     display: flex;
 }
 
-#timer-text {
+.timer {
     position: absolute;
     right: 0;
     margin: 20px;

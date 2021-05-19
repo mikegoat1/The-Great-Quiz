@@ -13,7 +13,26 @@ var headEl = document.createElement("h1");
 var pEl = document.createElement("p"); 
 var button1El = document.createElement("button"); 
 var box = document.querySelector(".main");
+var timeEl = document.querySelector("#timer-text"); 
 
+var secondsLeft = 16; 
+
+//Set time function
+function setTime (){
+    var timeInterval = setInterval(function(){
+        secondsLeft--;
+        timeEl.textContent = secondsLeft; 
+
+        if(secondsLeft === 0){
+            clearInterval(timeInterval); 
+            timeEl.textContent = "";
+            alert("You lost brah");
+            //set up local storage to store loss in HighScore
+            //change alert to confirm
+        }
+        
+    }, 1000);
+}
 
 box.setAttribute("style", "height: 300px;");
 // This is the first Heading on the intro
@@ -31,6 +50,16 @@ button1El.textContent = "Start Game";
 button1El.setAttribute("style", "position: relative; left: 238px; bottom: -19px; border: black solid 3px; border-radius: 20px; font-size: large;")
 main.appendChild(button1El);
 
+// when start button is press
 button1El.addEventListener("click", function(){
-    
+    main.removeChild(pEl);
+    main.removeChild(button1El)
+    main.removeChild(headEl);
+
+    setTime(); 
+    //nest the next function that fills the page 
 })
+
+
+
+// you can make a class with the presets and add it to your next page elements. 
