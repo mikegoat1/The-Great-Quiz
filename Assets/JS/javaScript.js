@@ -34,6 +34,7 @@ function setTime (){
     }, 1000);
 }
 
+function startPage(){
 box.setAttribute("style", "height: 300px;");
 // This is the first Heading on the intro
 headEl.textContent = " Super Duper Coding Quiz Challenge"; 
@@ -49,6 +50,32 @@ main.appendChild(pEl);
 button1El.textContent = "Start Game";
 button1El.setAttribute("style", "position: relative; left: 238px; bottom: -19px; border: black solid 3px; border-radius: 20px; font-size: large;")
 main.appendChild(button1El);
+}
+
+
+function firstQuestion(){
+    headEl.setAttribute("style","font-size: 25px; text-align: center;")
+    headEl.textContent = "Name of something to store everything in."
+    main.appendChild(headEl); 
+    var olEL = document.createElement("ol");
+    main.appendChild(olEL); 
+    var firstAnswer = ["Variable", "That Thang", "Integer", "Loops"]; 
+    buttonMaker(firstAnswer); 
+    
+}
+
+function buttonMaker(array){
+    for(i=0; i < array.length; i++){
+        var li = document.createElement("li");
+        document.querySelector("ol").appendChild(li);
+        var button = document.createElement("button");
+        button.textContent = array[i];
+        button.setAttribute("style", "color: white; background-color: black; border: black solid; border-radius: 10px; font-size: 15px;")
+        li.appendChild(button); 
+    }
+}
+
+
 
 // when start button is press
 button1El.addEventListener("click", function(){
@@ -58,8 +85,10 @@ button1El.addEventListener("click", function(){
 
     setTime(); 
     //nest the next function that fills the page 
+    firstQuestion(); 
 })
 
+startPage(); 
 
 
 // you can make a class with the presets and add it to your next page elements. 
