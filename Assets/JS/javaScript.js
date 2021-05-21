@@ -1,10 +1,3 @@
-// To make the screens switch we are going to have to push and pop elements and classes
-
-// First page I will need to make a h1, p, and button inside the main element
-// The h1 will have the title, append that first with its Unique tag
-// the p will go under and centered with its unique tag
-// the button under will say start with background yellow and black border, with slight border radius 
-// when the start button is pressed with eventlistener it will trigger a function to pop all of the elements off the page and it will trigger the next function with the first set off questions
 
 
 var main = document.querySelector("#main1");
@@ -16,7 +9,16 @@ var box = document.querySelector(".main");
 var timeEl = document.querySelector("#timer-text");
 var firstAnswer = ["Variable", "That Thang", "Integer", "Loops"];
 var secondsLeft = 26;
-var isCorrect = true;
+
+var HighScore ={};
+
+// function localStorage(){
+
+// }
+
+// function init(){
+
+// }
 
 //Set time function
 function setTime() {
@@ -32,17 +34,19 @@ function setTime() {
             //change alert to confirm
         }
 
+        // if(yup){
+        //     var saveTime = secondsLeft; 
+        //     clearInterval(timeInterval); 
+        //     HighScore.score = saveTime;
+
+        // }
+
+
     }, 1000);
+    // return saveTime;
 }
 
-function addTime() {
-    if (isCorrect) {
-        secondsLeft += 10;
-    } else {
-        secondsLeft -= 10;
-    }
-}
-
+//Starts the page 
 function startPage() {
     box.setAttribute("style", "height: 300px;");
     // This is the first Heading on the intro
@@ -78,7 +82,7 @@ function firstQuestion() {
     headEl.textContent = "Name of something to store everything in."
     main.appendChild(headEl);
     var olEL = document.createElement("ol");
-    olEL.setAttribute("class", "ol");
+    olEL.setAttribute("id", "ol");
     main.appendChild(olEL);
 
     buttonMaker(firstAnswer);
@@ -108,7 +112,7 @@ function firstQuestion() {
         }
     });
 }
-
+// The Second question
 function secondQuestion() {
     headEl.textContent = "Which one is related to JS?"
     document.querySelector(".button0").textContent = "Pacers";
@@ -144,7 +148,7 @@ function secondQuestion() {
         }
     })
 };
-
+//The Third question
 function thirdQuestion(){
     headEl.textContent = "What is the best way to hold detailed info?"
     document.querySelector(".button0").textContent = "For Loops";
@@ -162,25 +166,45 @@ function thirdQuestion(){
             if (event.target.value === "Objects") {
                 secondsLeft += 10;
                 console.log("correct");
+                allDone()
             }
             if (event.target.value === "For Loops") {
                 secondsLeft -= 10;
                 console.log("not the mommie1");
+                allDone()
             } else if (event.target.value === "Arrays") {
                 secondsLeft -= 10;
                 console.log("not the mommie2");
+                allDone()
             } else if (event.target.value === "Backpack") {
                 secondsLeft -= 10;
                 console.log("not the mommie3");
+                allDone()
             }
         }
     })
+}
+
+function allDone() {
+    // var yup = true;
+    headEl.textContent = "ALL DONE!!"
+    var finalPara = document.createElement("p");
+    finalPara.textContent = "Your final score is "; 
+    var li = document.querySelector(".li0")
+    li.remove();
+    var li1 = document.querySelector(".li1")
+    li1.remove();
+    var li2 = document.querySelector(".li2")
+    li2.remove();
+    var li3 = document.querySelector(".li3")
+    li3.remove();
 }
 
 //Button maker
 function buttonMaker(array) {
     for (i = 0; i < array.length; i++) {
         var li = document.createElement("li");
+        li.setAttribute("class", "li" + [i]);
         document.querySelector("ol").appendChild(li);
         var button = document.createElement("button");
         button.textContent = array[i];
