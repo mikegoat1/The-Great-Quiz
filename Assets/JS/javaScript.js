@@ -7,12 +7,17 @@ var pEl = document.createElement("p");
 var button1El = document.createElement("button");
 var box = document.querySelector(".main");
 var timeEl = document.querySelector("#timer-text");
+var theScore = document.querySelector(".highscore");
 var firstAnswer = ["Variable", "That Thang", "Integer", "Loops"];
 var secondsLeft;
 var timer;
 var isWin;
 var winners = [];
 var HighScore = {};
+
+theScore.addEventListener("click", function(){
+    alert(JSON.stringify(winners))
+})
 
 function grabHS(y) {
     //seconds left
@@ -44,28 +49,29 @@ function setTime() {
                 timeEl.textContent = "";
             }
         }
-        if (secondsLeft === 0) {
+        if (secondsLeft <= 0) {
             clearInterval(timer);
             secondsLeft = 0;
             grabHS(secondsLeft);
             console.log(secondsLeft);
             timeEl.textContent = "";
+            allDone();
         }
     }, 1000)
 
 }
 //Getting local storage 
 function getWinnerCircle() {
-    winners = JSON.parse(localStorage.getItem("HighScore"));
-    var storeHighScores;
-    
+    winners = JSON.parse(window.localStorage.getItem("HighScore")) || [];
+    var storeHighScores = winners;
+
     console.log(storeHighScores);
 
 }
 
 //Setting Local Storage
 function winnerCircle(x, y) {
-    console.log("winner Cirle", HighScore);
+
     winners.push(HighScore);
     console.log(winners);
     localStorage.setItem("HighScore", JSON.stringify(winners));
@@ -219,7 +225,7 @@ function allDone(sec) {
     //Made the para
     var finalPara = document.createElement("p");
     finalPara.setAttribute("style", "font-size: 18px; margin-left: 38px;")
-    finalPara.textContent = "Your final score is ";
+    finalPara.textContent = "Your final score is " + secondsLeft;
     //remvoed the li
     var li = document.querySelector(".li0")
     li.remove();
@@ -273,14 +279,53 @@ function screenHigh() {
     main.appendChild(olEl);
 
     console.log(HighScore);
+    //makes the list for HighScores 
+    for (let i = 0; i < winners.length; i++) {
+        var li = document.createElement("li");
+        li.setAttribute("class", "li" + [i]);
+        li.setAttribute("style", "background-color: grey;");
+        document.querySelector("ol").appendChild(li);
+        li.textContent = winners[i].name + ": High Score: " + winners[i].score;
+    }
 
-    // for (let i = 0; i < storeHighScores.length; i++) {
-    //     var li = document.createElement("li");
-    //     li.setAttribute("class", "li" + [i]);
-    //     li.setAttribute("style", "background-color: grey;");
-    //     document.querySelector(olEl).appendChild(li);
-    //     li.textContent = storeHighScores.name + ": High Score: " + storeHighScores.score;
-    // }
+    //makes buttons clear
+    var clearBtn = document.createElement("button");
+    clearBtn.setAttribute("style", "font-size:large; background-color: black; color: white; left: 213px; border-radius: 10px; position: relative;")
+    clearBtn.setAttribute("data", "Clear");
+    clearBtn.setAttribute("id", "clear");
+    clearBtn.textContent = "Clear";
+    main.appendChild(clearBtn);
+
+
+    //Clear localstorage and li elements.
+    function clearFunction() {
+        var olEl = document.querySelector("ol");
+        var olElChild = olEl.lastElementChild;
+        while (olElChild) {
+            olEl.removeChild(olElChild);
+            olElChild = olEl.lastElementChild;
+        }
+
+        localStorage.removeItem("HighScore");
+    }
+
+    document.getElementById("clear").onclick = clearFunction;
+
+    //Makes go back button 
+    var goBackBtn = document.createElement("button");
+    goBackBtn.setAttribute("style", "font-size:large; background-color: black; color: white; left: 213px; border-radius: 10px; position: relative;");
+    goBackBtn.setAttribute("data", "Go Back");
+    goBackBtn.setAttribute("id", "clear1");
+    goBackBtn.textContent = "Go Back";
+    main.appendChild(goBackBtn);
+
+    
+    
+    
+    
+  document.querySelector("#clear1").addEventListener("click", function(){
+      location.reload();
+  })
 
 
 }
