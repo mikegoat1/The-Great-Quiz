@@ -8,43 +8,69 @@ var button1El = document.createElement("button");
 var box = document.querySelector(".main");
 var timeEl = document.querySelector("#timer-text");
 var firstAnswer = ["Variable", "That Thang", "Integer", "Loops"];
-var secondsLeft = 26;
+var secondsLeft;
+var timer;
+var isWin;
+var winners = [];
+var HighScore = {};
 
-var HighScore ={};
+function grabHS(y) {
+    //seconds left
+    if (y === secondsLeft) {
+        HighScore.score = secondsLeft;
+        console.log(secondsLeft);
+    }
+    return secondsLeft;
+}
 
-// function localStorage(){
+function init() {
+    getWinnerCircle();
 
-// }
+}
 
-// function init(){
 
-// }
+
 
 //Set time function
 function setTime() {
-    var timeInterval = setInterval(function () {
+    timer = setInterval(function () {
         secondsLeft--;
         timeEl.textContent = secondsLeft;
-
-        if (secondsLeft <= 0) {
-            clearInterval(timeInterval);
-            timeEl.textContent = "";
-            alert("You lost brah");
-            //set up local storage to store loss in HighScore
-            //change alert to confirm
+        if (secondsLeft >= 0) {
+            if (isWin && secondsLeft > 0) {
+                clearInterval(timer);
+                grabHS(secondsLeft);
+                console.log(secondsLeft);
+                timeEl.textContent = "";
+            }
         }
+        if (secondsLeft === 0) {
+            clearInterval(timer);
+            secondsLeft = 0;
+            grabHS(secondsLeft);
+            console.log(secondsLeft);
+            timeEl.textContent = "";
+        }
+    }, 1000)
 
-        // if(yup){
-        //     var saveTime = secondsLeft; 
-        //     clearInterval(timeInterval); 
-        //     HighScore.score = saveTime;
-
-        // }
-
-
-    }, 1000);
-    // return saveTime;
 }
+//Getting local storage 
+function getWinnerCircle() {
+    winners = JSON.parse(localStorage.getItem("HighScore"));
+    var storeHighScores;
+    
+    console.log(storeHighScores);
+
+}
+
+//Setting Local Storage
+function winnerCircle(x, y) {
+    console.log("winner Cirle", HighScore);
+    winners.push(HighScore);
+    console.log(winners);
+    localStorage.setItem("HighScore", JSON.stringify(winners));
+}
+
 
 //Starts the page 
 function startPage() {
@@ -70,6 +96,8 @@ function startPage() {
         main.removeChild(button1El)
         main.removeChild(headEl);
 
+        isWin = false;
+        secondsLeft = 20;
         setTime();
         //nest the next function that fills the page 
         firstQuestion();
@@ -149,7 +177,7 @@ function secondQuestion() {
     })
 };
 //The Third question
-function thirdQuestion(){
+function thirdQuestion() {
     headEl.textContent = "What is the best way to hold detailed info?"
     document.querySelector(".button0").textContent = "For Loops";
     document.querySelector(".button0").setAttribute("value", "For Loops");
@@ -185,11 +213,14 @@ function thirdQuestion(){
     })
 }
 
-function allDone() {
-    // var yup = true;
+function allDone(sec) {
+    isWin = true;
     headEl.textContent = "ALL DONE!!"
+    //Made the para
     var finalPara = document.createElement("p");
-    finalPara.textContent = "Your final score is "; 
+    finalPara.setAttribute("style", "font-size: 18px; margin-left: 38px;")
+    finalPara.textContent = "Your final score is ";
+    //remvoed the li
     var li = document.querySelector(".li0")
     li.remove();
     var li1 = document.querySelector(".li1")
@@ -198,6 +229,60 @@ function allDone() {
     li2.remove();
     var li3 = document.querySelector(".li3")
     li3.remove();
+    //made the header
+    main.appendChild(finalPara);
+    //created the input
+    var finalInput = document.createElement("input");
+    finalInput.setAttribute("placeholder", "Write Initials")
+    finalInput.setAttribute("style", "position: absolute; left: 26px; border-radius: 10px; font-size: large;");
+    main.appendChild(finalInput);
+
+    //made the button 
+    var finalBtn = document.createElement("button");
+    finalBtn.setAttribute("style", "font-size:large; background-color: black; color: white; left: 213px; border-radius: 10px; position: relative;")
+    finalBtn.setAttribute("data", "Submit")
+    finalBtn.textContent = "Submit";
+    main.appendChild(finalBtn);
+    console.log("close");
+
+    finalBtn.addEventListener("click", function () {
+        sec = secondsLeft;
+        HighScore.score = sec;
+        console.log(secondsLeft, "lets go");
+        var nameYa = finalInput.value;
+        console.log(nameYa);
+        HighScore.name = nameYa;
+        console.log(HighScore);
+        winnerCircle(secondsLeft, nameYa);
+        screenHigh();
+
+    })
+}
+
+function screenHigh() {
+    headEl.textContent = "The BIG HIGH SCORE LIST"
+    //Removing the elements not needed for page. 
+    var input = document.querySelector("input");
+    input.remove();
+    var button = document.querySelector("button");
+    button.remove();
+    var par = document.querySelector("p");
+    par.remove();
+    getWinnerCircle()
+    var olEl = document.createElement("ol");
+    main.appendChild(olEl);
+
+    console.log(HighScore);
+
+    // for (let i = 0; i < storeHighScores.length; i++) {
+    //     var li = document.createElement("li");
+    //     li.setAttribute("class", "li" + [i]);
+    //     li.setAttribute("style", "background-color: grey;");
+    //     document.querySelector(olEl).appendChild(li);
+    //     li.textContent = storeHighScores.name + ": High Score: " + storeHighScores.score;
+    // }
+
+
 }
 
 //Button maker
@@ -218,7 +303,7 @@ function buttonMaker(array) {
 
 
 
-
+init();
 startPage();
 
 
