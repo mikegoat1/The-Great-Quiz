@@ -3,7 +3,7 @@
 ## Description
 
 
-This was meant to test my skills in creating something with JavaScript. 
+This is something I wanted to try out! I wanted to create something with a mix of vanilla JS and Jquery in a dynamic schema. 
 
 ## Table of Contents
 
@@ -20,7 +20,7 @@ This was meant to test my skills in creating something with JavaScript.
 // To add a screenshot, create an assets/images folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README.
 ## Usage
 
-Just a simple game to show some skill
+This is just a simple quiz. 
 
 ## Credits
 
