@@ -15,9 +15,10 @@ This is something I wanted to try out! I wanted to create something with a mix o
 
 
 ## Installation
+The best way to run this application is through the deployed link. 
+https://mikegoat1.github.io/The-Great-Quiz/
 
 
-// To add a screenshot, create an assets/images folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README.
 ## Usage
 
 This is just a simple quiz. 
@@ -30,7 +31,7 @@ This is just a simple quiz.
 
 
 ## Features
-
+<image src="./Assets/Images/Great-Quiz.png">
 
 
 ## Liscense
